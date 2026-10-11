@@ -6,7 +6,9 @@ export const GET: APIRoute = async ({ params }) => {
 
   return entry
     ? new Response(entry.body, {
-        headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
+        headers: {
+          'Content-Type': 'text/markdown; charset=utf-8',
+        },
       })
     : new Response(null, { status: 404 });
 };

@@ -13,20 +13,22 @@ const pages = (await getCollectionByLocale("ventures"))
     <div class="text-lg font-medium col-span-full">{t("title")}</div>
 
     {pages.map(({ entry: page, slug }) => (
-        <a class="flex flex-col gap-3" href={getPathname(slug)}>
+        <a class="group flex flex-col gap-3" href={getPathname(slug)}>
             <div class="aspect-video relative after:absolute after:inset-0 after:border after:rounded-lg after:border-border bg-muted rounded-lg overflow-hidden">
-                <Image
-                    alt={page.data.title}
-                    class="size-full dark:invert"
-                    height={900}
-                    loading="eager"
-                    src={page.data.image}
-                    width={1600}
-                />
+                {page.data.image && (
+                    <Image
+                        alt={page.data.title}
+                        class="size-full dark:invert"
+                        height={900}
+                        loading="eager"
+                        src={page.data.image}
+                        width={1600}
+                    />
+                )}
             </div>
 
             <div class="flex flex-col text-sm gap-1">
-                <h2 class="line-clamp-1">{page.data.title}</h2>
+                <h2 class="line-clamp-1 group-hover:text-accent group-hover:underline decoration-1 underline-offset-4">{page.data.title}</h2>
 
                 <p class="text-muted-foreground line-clamp-2">
                     {page.data.description}

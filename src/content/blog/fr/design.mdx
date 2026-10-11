@@ -1,58 +1,57 @@
 ---
 date: 2026-09-25
 draft: false
-image: ../../../assets/design.webp
 title: Construisez sur les standards du web
 ---
 
-Voici comment créer des sites web exceptionnels :
+Voici comment créer d’excellents sites web :
 
 ## 1. Rendez-le rapide
 
-- Les pages doivent se charger le plus vite possible (privilégiez les pages statiques).
+- Les pages doivent s’afficher le plus vite possible (privilégiez le statique).
 - Optimisez le chargement des [images](https://svelte.dev/docs/kit/performance#Optimizing-assets-Images), des [polices](https://svelte.dev/docs/kit/performance#Optimizing-assets-Fonts) et des [scripts](https://svelte.dev/docs/kit/performance#Reducing-code-size-External-scripts).
-- La navigation doit être extrêmement rapide pour charger et afficher le contenu.
+- La navigation doit être instantanée : le contenu se charge et s’affiche sans attente.
 
 ## 2. Rendez-le lisible
 
 - Soyez concis (chaque mot doit compter).
-- Évitez le jargon technique et les expressions toutes faites.
-- Facilitez la lecture en diagonale (bon usage du **gras**, de l’_italique_, des listes, des titres, des images, etc.).
+- Évitez le jargon et les mots à la mode.
+- Facilitez la lecture en diagonale (gras, _italique_, listes, titres, images, etc.).
 - Gardez la première expérience [simple](https://fr.wikipedia.org/wiki/Principe_KISS) et révélez la complexité progressivement.
-- Illustrez le texte avec de nombreux exemples auxquels les lecteurs peuvent s’identifier.
+- Multipliez les exemples auxquels les lecteurs peuvent s’identifier.
 
 ## 3. Rendez-le utile
 
-- Facilitez les retours des lecteurs (par exemple, les fautes de frappe).
-- [Automatisez la vérification](https://andrewwegner.com/find-broken-links-with-github-actions.html) des liens cassés à chaque envoi sur git.
+- Facilitez les retours des lecteurs (une faute de frappe, par exemple).
+- [Automatisez la vérification](https://andrewwegner.com/find-broken-links-with-github-actions.html) des liens cassés à chaque push sur git.
 
 ## 4. Pensez-le pour l’IA
 
-La majeure partie du trafic vient désormais des robots d’exploration de l’IA.
+L’essentiel du trafic vient désormais des robots d’IA.
 
-- [Privilégiez cURL](https://x.com/karpathy/status/1914494203696177444) au « clic » lorsque c’est possible.
-- Fournissez des [prompts](https://posthog.com/blog/envoy-wizard-llm-agent) en plus des tutoriels.
+- Quand c’est possible, [proposez du cURL](https://x.com/karpathy/status/1914494203696177444) plutôt que des « clics ».
+- Proposez des [prompts](https://posthog.com/blog/envoy-wizard-llm-agent) en plus des tutoriels.
 
 ## 5. Préparez-le pour les agents
 
 - Permettez d’afficher les pages en markdown (il suffit d’ajouter `.md` [à l’URL](/fr/blog/design.md)).
-- Servez des fichiers markdown lorsque `Accept: text/markdown` est demandé.
-- Servez un fichier `llms.txt` comme répertoire de fichiers markdown.
+- Servez du markdown quand `Accept: text/markdown` est demandé.
+- Servez un fichier `llms.txt` qui fait office d’index des fichiers markdown.
 
 ## 6. Soignez les détails
 
-- Les boutons doivent avoir de larges zones de clic.
+- Prévoyez de grandes zones cliquables pour les boutons.
 - Les barres latérales doivent conserver leur position de défilement et leur état déplié.
 - Soignez les états actif et survol des éléments.
-- Chaque titre et chaque section doivent pouvoir être liés par des ancres stables.
-- Ajoutez des métadonnées et des balises canoniques pour que vos pages apparaissent proprement dans les résultats de recherche.
-- La meilleure animation dans une application est l’absence d’animation.
+- Chaque titre et chaque section doit avoir une ancre stable pour pouvoir être lié.
+- Ajoutez des métadonnées et des balises canoniques pour que vos pages s’affichent proprement dans les résultats de recherche.
+- La meilleure animation dans une application, c’est l’absence d’animation.
 
 ## 7. Localisez-le
 
 - N’affichez pas `/en` dans l’URL par défaut.
 - Utilisez un [routage côté serveur](https://svelte.dev/playground/de39de663ef2445b8fe17b79c500013b?version=5.56.2) pour servir la bonne langue.
-- Localisez les chaînes statiques et le contenu.
+- Localisez les textes statiques et le contenu.
 
 ## 8. Rendez-le adaptatif
 
@@ -61,12 +60,12 @@ La majeure partie du trafic vient désormais des robots d’exploration de l’I
 
 ## 9. Rendez-le accessible
 
-- Assurez-vous que toutes les images ont un attribut `alt`.
+- Vérifiez que toutes les images ont un attribut `alt`.
 - Respectez le réglage système `prefers-reduced-motion`.
 
 ## 10. Rendez-le utilisable
 
 - Évitez de remplacer les styles par défaut du navigateur.
 - N’ajoutez pas de défilement fluide à la page.
-- Limitez le défilement horizontal.
+- Évitez le défilement horizontal.
 - Ne masquez pas la barre de défilement.

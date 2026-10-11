@@ -4,13 +4,13 @@
   },
   "Header": {
     "about": "À propos",
-    "bio": "Gérant de <dimsight>Dimsight</dimsight>. J’ai auparavant fondé puis cédé <crosspost>Crosspost</crosspost> fin 2025.",
+    "bio": "Fondateur et PDG de <dimsight>Dimsight</dimsight>. J’ai déjà fondé puis revendu <crosspost>Crosspost</crosspost> fin 2025.",
     "blog": "Blog",
     "language": "Langue",
     "portrait": "Un portrait d’Armand"
   },
   "NotFound": {
-    "description": "La page que vous cherchez n’existe pas.",
+    "description": "Cette page n’existe pas.",
     "title": "Page introuvable"
   },
   "Posts": {

@@ -57,5 +57,7 @@ export default defineConfig({
     }),
   ],
   site,
-  vite: { plugins: [tailwindcss()] },
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

@@ -12,33 +12,21 @@ const { Content } = await render(entry);
 ---
 
 <Layout title={`${entry.data.title} · Armand Thuillart`}>
-    <div class="grid gap-5 grid-cols-1">
-        <div class="grid gap-12 text-foreground">
-            <div class="aspect-video overflow-hidden bg-current rounded-lg">
-                <Image
-                    alt={entry.data.title}
-                    class="size-full dark:invert object-cover"
-                    fetchpriority="high"
-                    loading="eager"
-                    src={entry.data.image}
-                />
-            </div>
+    <div class="pt-16 grid gap-12">
+        <div class="grid gap-3">
+            <h1 class="px-12 order-2 text-center text-[2rem] leading-[1.2] tracking-[-0.04em] text-balance md:text-[2.5rem] lg:text-5xl">
+                {entry.data.title}
+            </h1>
 
-            <div class="grid gap-3">
-                <h1 class="px-12 order-2 text-center text-[2rem] leading-[1.2] tracking-[-0.04em] text-balance md:text-[2.5rem] lg:text-5xl">
-                    {entry.data.title}
-                </h1>
-
-                <p class="order-1 text-center text-sm font-medium">
-                    {entry.data.date.toLocaleDateString(Astro.currentLocale, {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                    })}
-                </p>
-            </div>
-
-            <Markdown Content={Content} />
+            <p class="order-1 text-center text-sm font-medium">
+                {entry.data.date.toLocaleDateString(Astro.currentLocale, {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                })}
+            </p>
         </div>
+
+        <Markdown Content={Content} />
     </div>
 </Layout>

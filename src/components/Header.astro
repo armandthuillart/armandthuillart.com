@@ -78,8 +78,10 @@ const NameTag: HTMLTag = isCollapsed ? "a" : "div";
             <p
                 class="col-span-full [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-1"
                 set:html={t.rich("bio", {
-                    crosspost: (chunks) => `<a href="${getPathname("crosspost")}">${chunks}</a>`,
-                    dimsight: (chunks) => `<a href="https://dimsight.com" target="_blank" rel="noopener noreferrer">${chunks}</a>`,
+                    crosspost: (chunks) =>
+                        `<a href="${getPathname("crosspost")}">${chunks}</a>`,
+                    dimsight: (chunks) =>
+                        `<a href="https://dimsight.com" target="_blank" rel="noopener noreferrer">${chunks}</a>`,
                 })}
             />
         )}

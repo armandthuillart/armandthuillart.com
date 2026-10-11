@@ -7,11 +7,10 @@ const blog = defineCollection({
     base: './src/content/blog',
     pattern: '**/*.mdx',
   }),
-  schema: ({ image }) =>
+  schema: () =>
     z.object({
       date: z.coerce.date(),
       draft: z.boolean(),
-      image: image(),
       title: z.string(),
     }),
 });
@@ -26,7 +25,7 @@ const ventures = defineCollection({
       date: z.coerce.date(),
       description: z.string(),
       draft: z.boolean(),
-      image: image(),
+      image: image().optional(),
       title: z.string(),
     }),
 });
