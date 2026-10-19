@@ -1,0 +1,121 @@
+'use client';
+
+import type { User } from '../lib/types';
+import {
+  useTranslations,
+  parseAsBoolean,
+  useQueryState,
+  usePathname,
+  useRouter,
+  signOut,
+} from '../local/runtime';
+import { AppSettings } from './app.settings';
+import { Avatar, AvatarFallback } from './ui/avatar';
+import { DrawerTrigger } from './ui/drawer';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
+import {
+  HelpIcon,
+  KeyboardKeyIcon,
+  LogOutIcon,
+  MoreIcon,
+  SettingsIcon,
+  SignatureIcon,
+} from './ui/icons';
+import { SidebarMenuButton } from './ui/sidebar';
+
+interface AppMenuProps {
+  user: null | User;
+}
+
+export function AppMenu({ user }: AppMenuProps) {
+  const t = useTranslations('AppMenu');
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [, setShowPolicies] = useQueryState('policies', parseAsBoolean.withDefault(false));
+
+  const [, setShowShortcuts] = useQueryState('shortcuts', parseAsBoolean.withDefault(false));
+
+  async function handleSignOut() {
+    await signOut();
+
+    if (pathname.startsWith('/c')) {
+      router.push('/');
+    } else {
+      router.refresh();
+    }
+  }
+
+  return (
+    <AppSettings isFree={user?.tier === 'free'} user={user ?? null}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <SidebarMenuButton className="sidebar-menu-trigger h-auto justify-between rounded-full pr-4 pl-2">
+            <div className="flex items-center gap-2.5 overflow-hidden">
+              <Avatar>
+                <AvatarFallback>
+                  {user?.firstName && user?.lastName
+                    ? user.firstName.charAt(0) + user.lastName.charAt(0)
+                    : (user?.email?.charAt(0) ?? '?')}
+                </AvatarFallback>
+              </Avatar>
+              <span className="truncate text-sm font-medium">
+                {user?.firstName} {user?.lastName}
+              </span>
+            </div>
+            <MoreIcon className="size-6" />
+          </SidebarMenuButton>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent align="start" className="w-58" side="top">
+          <DrawerTrigger asChild>
+            <DropdownMenuItem>
+              <SettingsIcon className="size-4" />
+              {t('settings')}
+            </DropdownMenuItem>
+          </DrawerTrigger>
+
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <HelpIcon className="size-4" />
+              {t('help')}
+            </DropdownMenuSubTrigger>
+
+            <DropdownMenuSubContent>
+              <DropdownMenuItem
+                onClick={() => {
+                  setShowPolicies(true);
+                }}
+              >
+                <SignatureIcon className="size-4" />
+                {t('termsAndPolicies')}
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                onClick={() => {
+                  setShowShortcuts(true);
+                }}
+              >
+                <KeyboardKeyIcon className="size-4" />
+                {t('keyboardShortcuts')}
+              </DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+
+          <DropdownMenuItem onClick={handleSignOut}>
+            <LogOutIcon className="size-4" />
+            {t('logOut')}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </AppSettings>
+  );
+}

@@ -1,46 +1,53 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import { render } from "astro:content";
-import { getEntryByLocale } from "@lib/i18n";
-import Markdown from "@components/Markdown.astro";
-import { Image } from "astro:assets";
+import { appRegistry, type AppSlug } from '@apps/registry';
+import Markdown from '@components/Markdown.astro';
+import VentureLaunch from '@components/VentureLaunch.astro';
+import Layout from '@layouts/Layout.astro';
+import { getEntryByLocale } from '@lib/i18n';
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
 
-const page = await getEntryByLocale("ventures", Astro.params.slug);
-if (!page) return Astro.rewrite("/404");
+const page = await getEntryByLocale('ventures', Astro.params.slug);
+if (!page) return Astro.rewrite('/404');
 
 const { Content } = await render(page);
+const slug = Astro.params.slug ?? '';
+const image = 'image' in page.data ? page.data.image : undefined;
+const launchableApp = slug in appRegistry ? (slug as AppSlug) : undefined;
 ---
 
 <Layout title={page.data.title}>
-    <div class="grid gap-5 grid-cols-1">
-        <div class="grid gap-12 text-foreground">
-            {page.data.image && (
-                <div class="aspect-video overflow-hidden bg-current rounded-lg">
-                    <Image
-                        alt={page.data.title}
-                        class="size-full dark:invert object-cover"
-                        fetchpriority="high"
-                        loading="eager"
-                        src={page.data.image}
-                    />
-                </div>
-            )}
-
-            <div class="flex flex-col gap-3">
-                <h1 class="order-2 text-center text-[2rem] leading-[1.2] tracking-[-0.04em] text-balance md:text-[2.5rem] lg:text-5xl">
-                    {page.data.title}
-                </h1>
-
-                <p class="order-1 text-center text-sm font-medium">
-                    {page.data.date.toLocaleDateString(Astro.currentLocale, {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                    })}
-                </p>
-            </div>
-
-            <Markdown Content={Content} />
+  <div class="grid grid-cols-1 gap-5">
+    <div class="grid gap-12 text-foreground">
+      {image && (
+        <div class="aspect-video overflow-hidden rounded-lg bg-current">
+          <Image
+            alt={page.data.title}
+            class="size-full object-cover dark:invert"
+            fetchpriority="high"
+            loading="eager"
+            src={image}
+          />
         </div>
+      )}
+
+      <div class="flex flex-col gap-3">
+        <h1 class="order-2 text-center text-[2rem] leading-[1.2] tracking-[-0.04em] text-balance md:text-[2.5rem] lg:text-5xl">
+          {page.data.title}
+        </h1>
+
+        <p class="order-1 text-center text-sm font-medium">
+          {page.data.date.toLocaleDateString(Astro.currentLocale, {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })}
+        </p>
+      </div>
+
+      <Markdown Content={Content} />
+
+      {launchableApp && <VentureLaunch app={launchableApp} />}
     </div>
+  </div>
 </Layout>

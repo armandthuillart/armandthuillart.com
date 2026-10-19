@@ -1,15 +1,15 @@
 ---
-import ogImage from "@public/og-image.png";
-import { Font } from "astro:assets";
-import { getLocale, getPathname, getTranslations } from "@lib/i18n";
+import { getLocale, getPathname, getTranslations } from '@lib/i18n';
+import ogImage from '@public/og-image.png';
+import { Font } from 'astro:assets';
 
 interface Props {
-    title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
 
-const t = getTranslations("Head");
+const t = getTranslations('Head');
 
 const isIndexPage = Astro.url.pathname === getPathname();
 const pageTitle = isIndexPage ? title : `${title} | Armand Thuillart`;
@@ -24,16 +24,16 @@ const pageTitle = isIndexPage ? title : `${title} | Armand Thuillart`;
 <link rel="manifest" href="/manifest.webmanifest" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
-    rel="alternate"
-    type="application/rss+xml"
-    href={new URL(getPathname("rss.xml"), Astro.site)}
-    title="Armand Thuillart"
+  rel="alternate"
+  type="application/rss+xml"
+  href={new URL(getPathname('rss.xml'), Astro.site)}
+  title="Armand Thuillart"
 />
 <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
 
 <title>{pageTitle}</title>
 <meta name="title" content={pageTitle} />
-<meta name="description" content={t("description")} />
+<meta name="description" content={t('description')} />
 
 <meta property="og:url" content={Astro.url} />
 <meta property="og:type" content="website" />
@@ -41,15 +41,15 @@ const pageTitle = isIndexPage ? title : `${title} | Armand Thuillart`;
 <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
 <meta property="og:locale" content={getLocale()} />
 <meta property="og:site_name" content="Armand Thuillart" />
-<meta property="og:description" content={t("description")} />
+<meta property="og:description" content={t('description')} />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@armandthuillart" />
 <meta name="twitter:creator" content="@armandthuillart" />
 <meta name="twitter:title" content={pageTitle} />
-<meta name="twitter:description" content={t("description")} />
+<meta name="twitter:description" content={t('description')} />
 <meta name="twitter:image" content={new URL(ogImage.src, Astro.site)} />
 
-<Font cssVariable="--font-ibm-plex-mono" preload={[{ style: "normal" }]} />
-<Font cssVariable="--font-ibm-plex-sans" preload={[{ style: "normal" }]} />
-<Font cssVariable="--font-ibm-plex-serif" preload={[{ style: "normal" }]} />
+<Font cssVariable="--font-ibm-plex-mono" preload={[{ style: 'normal' }]} />
+<Font cssVariable="--font-ibm-plex-sans" preload={[{ style: 'normal' }]} />
+<Font cssVariable="--font-ibm-plex-serif" preload={[{ style: 'normal' }]} />

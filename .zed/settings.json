@@ -13,6 +13,11 @@
     "pnpm-lock.yaml"
   ],
   "languages": {
+    "Astro": {
+      "format_on_save": "on",
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "prettier": { "allowed": false }
+    },
     "CSS": {
       "format_on_save": "on",
       "formatter": [{ "language_server": { "name": "oxfmt" } }],
@@ -45,12 +50,25 @@
       "prettier": { "allowed": false }
     },
     "TypeScript": {
-      "code_actions_on_format": { "source.fixAll.oxc": true },
+      "format_on_save": "on",
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ],
+      "language_servers": ["!eslint", "..."],
+      "prettier": { "allowed": false }
+    },
+    "YAML": {
       "format_on_save": "on",
       "formatter": [{ "language_server": { "name": "oxfmt" } }],
       "prettier": { "allowed": false }
     },
-    "YAML": {
+    "Svelte": {
+      "format_on_save": "on",
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "prettier": { "allowed": false }
+    },
+    "TSX": {
       "format_on_save": "on",
       "formatter": [{ "language_server": { "name": "oxfmt" } }],
       "prettier": { "allowed": false }
@@ -58,10 +76,6 @@
   },
   "lsp": {
     "oxfmt": {
-      "binary": {
-        "arguments": ["fmt", "--lsp"],
-        "path": "node_modules/.bin/vp"
-      },
       "initialization_options": {
         "settings": {
           "fmt.configPath": "./vite.config.ts",
@@ -70,10 +84,6 @@
       }
     },
     "oxlint": {
-      "binary": {
-        "arguments": ["lint", "--lsp"],
-        "path": "node_modules/.bin/vp"
-      },
       "initialization_options": {
         "settings": {
           "fixKind": "safe_fix",

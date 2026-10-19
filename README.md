@@ -47,6 +47,12 @@ Posts live in `src/content/blog/<locale>/`.
 
 Posts with an `icon` and `date` (and `draft` not `true`) appear on the home page.
 
+## Playable apps
+
+Venture pages link to the apps at `/en/apps/<slug>/` and `/fr/apps/<slug>/`. Each app lives under `src/apps/<slug>/` and uses its original React or Svelte components in an Astro island. Database and service boundaries run against local mock state. Each route loads its own styles.
+
+Dimsight's model, manifest, preview images, and drawings are served from `public/apps/dimsight/assets/`. They are a matching artifact bundle downloaded from R2; running the app does not require R2 access.
+
 ## Languages
 
 Pages live under `/en/` (default) or `/fr/`. UI strings are in `messages/<locale>.json`. To translate a post, add a file with the same name under its locale folder, for example `src/content/blog/fr/bio.mdx`. Untranslated content falls back to English.

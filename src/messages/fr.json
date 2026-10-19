@@ -18,6 +18,11 @@
     "latest": "Derniers articles",
     "title": "Blog"
   },
+  "VentureLaunch": {
+    "copy": "Explorez et interagissez avec Remark vous-même. Une démo vaut mieux que mille mots.",
+    "label": "Version jouable",
+    "launch": "Ouvrir l’app"
+  },
   "Ventures": {
     "title": "Entreprises"
   }

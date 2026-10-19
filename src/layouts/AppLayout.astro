@@ -1,0 +1,18 @@
+---
+import Head from '@components/Head.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<html lang={Astro.currentLocale ?? 'en'}>
+  <head>
+    <Head title={title} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

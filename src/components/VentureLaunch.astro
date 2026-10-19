@@ -1,0 +1,26 @@
+---
+import type { AppSlug } from '@apps/registry';
+import { getPathname, getTranslations } from '@lib/i18n';
+
+interface Props {
+  app: AppSlug;
+}
+
+const { app } = Astro.props;
+const t = getTranslations('VentureLaunch');
+---
+
+<aside class="flex items-end justify-between gap-6 border-y border-border py-5 max-[520px]:flex-col max-[520px]:items-start">
+  <div>
+    <p class="mb-1.5 text-[0.7rem] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
+      {t('label')}
+    </p>
+    <p class="max-w-100 text-[0.9rem] leading-[1.45] text-muted-foreground">{t('copy')}</p>
+  </div>
+  <a
+    class="shrink-0 rounded-full border border-foreground px-4 py-2.5 text-[0.8rem] text-foreground no-underline hover:bg-foreground hover:text-background hover:no-underline"
+    href={getPathname(`apps/${app}`)}
+  >
+    {t('launch')}
+  </a>
+</aside>
