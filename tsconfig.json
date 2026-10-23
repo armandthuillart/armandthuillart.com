@@ -1,16 +1,12 @@
 {
   "compilerOptions": {
     "paths": {
-      "@apps/*": ["./src/apps/*"],
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@lib/*": ["./src/lib/*"],
       "@public/*": ["./public/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@crosspost/*": ["./src/apps/crosspost/source/*"],
-      "@dimsight/*": ["./src/apps/dimsight/source/*"],
-      "@remark/*": ["./src/apps/remark/src/*"]
+      "@styles/*": ["./src/styles/*"]
     }
   },
   "exclude": ["dist"],

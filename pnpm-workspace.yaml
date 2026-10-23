@@ -1,6 +1,4 @@
 allowBuilds:
-  '@parcel/watcher': true
-  '@swc/core': true
   esbuild: true
   sharp: true
   workerd: true
@@ -9,7 +7,7 @@ minimumReleaseAge: 0
 
 catalog:
   vite: npm:@voidzero-dev/vite-plus-core@1.1.0
-  vite-plus: 1.3.0
+  vite-plus: 1.1.0
 
 overrides:
   vite@*: 'catalog:'

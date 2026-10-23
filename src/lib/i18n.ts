@@ -11,15 +11,25 @@ type Chunks = (chunks: string) => string;
 export const locales = ['en', 'fr'] as const;
 export type Locale = (typeof locales)[number];
 
-const messages: Record<Locale, typeof en> = {
-  en,
-  fr,
-};
+const messages: Record<Locale, typeof en> = { en, fr };
 export const localeStore = new AsyncLocalStorage<Locale>();
 
 export const isLocale = (value?: string): value is Locale => locales.includes(value as Locale);
 export const getLocale = () => localeStore.getStore() ?? 'en';
 export const getPathname = (path = '', locale = getLocale()) => getRelativeLocaleUrl(locale, path);
+
+export function getTranslations<N extends keyof typeof en>(namespace: N, locale = getLocale()) {
+  const strings: Record<string, string> = messages[locale][namespace];
+
+  function t(key: keyof (typeof en)[N], values: Record<string, string | number> = {}) {
+    return strings[key as string].replace(/\{(\w+)\}/g, (_, name) => String(values[name]));
+  }
+  t.rich = (key: keyof (typeof en)[N], tags: Record<string, Chunks>, values = {}) => {
+    return t(key, values).replace(/<(\w+)>(.*?)<\/\1>/gs, (_, tag, chunks) => tags[tag](chunks));
+  };
+
+  return t;
+}
 
 export async function getCollectionByLocale<C extends 'blog' | 'ventures'>(
   collection: C,
@@ -40,24 +50,5 @@ export async function getCollectionByLocale<C extends 'blog' | 'ventures'>(
 }
 
 export async function getEntryByLocale(collection: 'blog' | 'ventures', slug?: string) {
-  const items = await getCollectionByLocale(collection);
-  return items.find((item) => item.slug === slug)?.entry;
-}
-
-export function getTranslations<N extends keyof typeof en>(namespace: N, locale = getLocale()) {
-  const strings: Record<string, string> = messages[locale][namespace];
-
-  function t(key: keyof (typeof en)[N], values: Record<string, number | string> = {}) {
-    return strings[key as string].replaceAll(/\{(\w+)\}/g, (_: string, name: string) =>
-      String(values[name]),
-    );
-  }
-  t.rich = (key: keyof (typeof en)[N], tags: Record<string, Chunks>, values = {}) => {
-    return t(key, values).replaceAll(
-      /<(\w+)>(.*?)<\/\1>/gs,
-      (_: string, tag: string, chunks: string) => tags[tag](chunks),
-    );
-  };
-
-  return t;
+  return (await getCollectionByLocale(collection)).find((item) => item.slug === slug)?.entry;
 }

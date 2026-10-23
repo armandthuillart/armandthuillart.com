@@ -1,3 +1,3 @@
-import type sprites from '@lib/symbols';
+import sprites from '@lib/symbols';
 
 export type Symbol = (typeof sprites)[number];

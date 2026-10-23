@@ -1,7 +1,7 @@
 ---
 interface Props {
-  href: string;
-  text: string;
+    href: string;
+    text: string;
 }
 
 const { href, text } = Astro.props;
@@ -10,8 +10,11 @@ const isActive = href === Astro.url.pathname;
 ---
 
 <a
-  class:list={['rounded-full px-2 py-1 text-sm font-medium', isActive && 'bg-accent text-white']}
-  href={href}
+    class:list={[
+        "text-sm py-1 font-medium rounded-full px-2",
+        isActive && "bg-accent text-white",
+    ]}
+    href={href}
 >
-  {text}
+    {text}
 </a>

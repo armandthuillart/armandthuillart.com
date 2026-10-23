@@ -1,23 +1,23 @@
 ---
-import type { Symbol } from '@lib/types';
+import type { Symbol } from "@lib/types";
 
 interface Props {
-  className: string;
-  symbol: Symbol;
+    className: string;
+    symbol: Symbol;
 }
 
 const { className, symbol, ...props } = Astro.props;
 ---
 
 <svg
-  aria-hidden="true"
-  class={className}
-  clip-rule="evenodd"
-  fill="currentColor"
-  fill-rule="evenodd"
-  viewBox="0 0 16 16"
-  xmlns="http://www.w3.org/2000/svg"
-  {...props}
+    aria-hidden="true"
+    class={className}
+    clip-rule="evenodd"
+    fill="currentColor"
+    fill-rule="evenodd"
+    viewBox="0 0 16 16"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
 >
-  <use href={`/sprites.svg#${symbol}`}></use>
+    <use href={`/sprites.svg#${symbol}`}></use>
 </svg>

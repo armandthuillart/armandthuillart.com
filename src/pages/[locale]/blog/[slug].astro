@@ -1,31 +1,32 @@
 ---
-import Markdown from '@components/Markdown.astro';
-import Layout from '@layouts/Layout.astro';
-import { getEntryByLocale } from '@lib/i18n';
-import { render } from 'astro:content';
+import Layout from "@layouts/Layout.astro";
+import { render } from "astro:content";
+import { getEntryByLocale } from "@lib/i18n";
+import Markdown from "@components/Markdown.astro";
+import { Image } from "astro:assets";
 
-const entry = await getEntryByLocale('blog', Astro.params.slug);
-if (!entry) return Astro.rewrite('/404');
+const entry = await getEntryByLocale("blog", Astro.params.slug);
+if (!entry) return Astro.rewrite("/404");
 
 const { Content } = await render(entry);
 ---
 
 <Layout title={`${entry.data.title} · Armand Thuillart`}>
-  <div class="grid gap-12 pt-16">
-    <div class="grid gap-3">
-      <h1 class="order-2 px-12 text-center text-[2rem] leading-[1.2] tracking-[-0.04em] text-balance md:text-[2.5rem] lg:text-5xl">
-        {entry.data.title}
-      </h1>
+    <div class="pt-16 grid gap-12">
+        <div class="grid gap-3">
+            <h1 class="px-12 order-2 text-center text-[2rem] leading-[1.2] tracking-[-0.04em] text-balance md:text-[2.5rem] lg:text-5xl">
+                {entry.data.title}
+            </h1>
 
-      <p class="order-1 text-center text-sm font-medium">
-        {entry.data.date.toLocaleDateString(Astro.currentLocale, {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-        })}
-      </p>
+            <p class="order-1 text-center text-sm font-medium">
+                {entry.data.date.toLocaleDateString(Astro.currentLocale, {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                })}
+            </p>
+        </div>
+
+        <Markdown Content={Content} />
     </div>
-
-    <Markdown Content={Content} />
-  </div>
 </Layout>

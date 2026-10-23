@@ -4,10 +4,7 @@ import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = async ({ site }) => {
   const locale = getLocale();
-  if (!site) return new Response(null, { status: 500 });
-
-  const collection = await getCollectionByLocale('blog');
-  const posts = collection.filter(({ entry }) => !entry.data.draft);
+  const posts = (await getCollectionByLocale('blog')).filter(({ entry }) => !entry.data.draft);
 
   return rss({
     customData: `<language>${locale}</language>`,
@@ -16,7 +13,7 @@ export const GET: APIRoute = async ({ site }) => {
       ...entry.data,
       link: getPathname(`blog/${slug}`),
     })),
-    site: site.href,
+    site: site!.href,
     title: 'Armand Thuillart',
   });
 };
