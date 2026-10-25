@@ -1,0 +1,47 @@
+---
+import { Font } from "astro:assets";
+import { getEntry, render } from "astro:content";
+import { ClientRouter } from "astro:transitions";
+
+import "@styles/global.css";
+
+const { lang } = Astro.locals;
+const page = Astro.params.slug || "index";
+
+const entry = await getEntry("content", `${page}.${lang}`);
+if (!entry) return Astro.rewrite("/404");
+
+const { Content } = await render(entry);
+const { description, title } = entry.data;
+---
+
+<!doctype html>
+<html class="scheme-light-dark" {lang} transition:name="root" transition:animate="none">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <Font cssVariable="--font-magister-st" preload />
+
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+
+    <ClientRouter />
+  </head>
+
+  <body class="bg-background font-serif leading-snug text-foreground antialiased">
+    <main class="relative z-10 mx-auto mt-8 mb-16 max-w-content px-gutter sm:mt-48 sm:mb-32">
+      <article>
+        {Astro.url.pathname === "/" ? (
+          <div class="flex flex-col gap-12 sm:gap-20">
+            <Content />
+          </div>
+        ) : (
+          <Content />
+        )}
+      </article>
+    </main>
+  </body>
+</html>

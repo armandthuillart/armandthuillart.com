@@ -1,0 +1,64 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+const videos = import.meta.glob<string>("/src/assets/videos/work/*.mp4", {
+  eager: true,
+  import: "default",
+});
+const posters = import.meta.glob<ImageMetadata>("/src/assets/videos/work/*-poster.jpg", {
+  eager: true,
+  import: "default",
+});
+
+const selected = Object.entries(videos).map(([path, video]) => {
+  const poster = path.replace(".mp4", "-poster.jpg");
+  const image = posters[poster];
+  if (!image) throw new Error(`Missing poster: ${poster}`);
+  return { image, video };
+});
+---
+
+<section class="flex flex-col gap-4">
+  <h2 class="text-muted-foreground">{title}</h2>
+  <div class="relative mx-[calc(50%-50vw)] -my-1 flex w-screen snap-x snap-mandatory scroll-pl-(--inset) scrollbar-none gap-3 overflow-x-scroll py-1 pr-[50vw] pl-(--inset) select-none [--inset:max(var(--spacing-gutter),calc((100vw-var(--container-content))/2+var(--spacing-gutter)))] focus-visible:outline-hidden">
+    {selected.map(({ image, video }) => (
+      <video
+        autoplay
+        class="aspect-video w-130 max-w-[calc(100vw-80px)] shrink-0 cursor-sw-resize snap-start overflow-hidden rounded-xl border border-border bg-muted object-cover"
+        loop
+        muted
+        playsinline
+        poster={image.src}
+        src={video}
+        tabindex="0"
+      />
+    ))}
+  </div>
+</section>
+
+<script>
+  const siblings = {
+    ArrowLeft: "previousElementSibling",
+    ArrowRight: "nextElementSibling",
+  } as const;
+
+  document.addEventListener("keydown", (event) => {
+    const { key, target } = event;
+    if (!(target instanceof HTMLVideoElement) || !(key in siblings)) return;
+
+    const next = target[siblings[key as keyof typeof siblings]];
+    if (!(next instanceof HTMLVideoElement)) return;
+
+    event.preventDefault();
+    next.focus({ preventScroll: true });
+  });
+
+  document.addEventListener("focusin", ({ target }) => {
+    if (!(target instanceof HTMLVideoElement) || !target.matches(":focus-visible")) return;
+    target.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+  });
+</script>

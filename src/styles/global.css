@@ -1,40 +1,44 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @theme {
-  --color-accent: var(--accent);
+  --spacing-gutter: 2rem;
+  --container-content: 37.25rem;
+}
+
+@theme inline {
   --color-background: var(--background);
   --color-border: var(--border);
   --color-foreground: var(--foreground);
+  --color-link: var(--link);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --font-mono: var(--font-ibm-plex-mono);
-  --font-sans: var(--font-ibm-plex-sans);
-  --font-serif: var(--font-ibm-plex-serif);
+  --font-serif: var(--font-magister-st);
 }
 
 :root {
-  --accent: oklch(52.2% 0.177 256);
-  --background: oklch(100% 0 0);
-  --border: oklch(0% 0 0 / 10%);
-  --foreground: oklch(23.2% 0.00381 286);
-  --muted: oklch(97.1% 0.00265 286);
-  --muted-foreground: oklch(64.8% 0.00735 286);
+  --background: #fff;
+  --border: #eaeaea;
+  --foreground: #2e2d29;
+  --link: #006cb8;
+  --muted: #f4f4f4;
+  --muted-foreground: #6d6c69;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --accent: oklch(66.9% 0.181 252);
-    --background: oklch(0% 0 0);
-    --border: oklch(24.9% 0.00561 286);
-    --foreground: oklch(97.1% 0.00265 286);
-    --muted: oklch(32.2% 0.00526 286);
-    --muted-foreground: oklch(62.2% 0.00742 286);
+    --background: #2e2d29;
+    --border: #585754;
+    --foreground: #fff;
+    --link: #6fc3ff;
+    --muted: #43423e;
+    --muted-foreground: #ababa9;
   }
 }
 
 @layer base {
   * {
-    @apply outline-offset-2 outline-accent focus-visible:outline-2;
+    @apply outline-offset-2 focus-visible:outline-2;
   }
   body,
   html {

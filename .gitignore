@@ -1,8 +1,8 @@
 *.tsbuildinfo
 .DS_Store
-.astro
+.astro/
 .playwright-mcp
-.scratch
 .wrangler
-dist
-node_modules
+dist/
+node_modules/
+pnpm-debug.log*

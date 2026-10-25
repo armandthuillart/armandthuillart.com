@@ -1,18 +1,10 @@
 {
-  "file_scan_exclusions": [
-    "**/.DS_Store",
-    "**/.git",
-    "**/build",
-    ".astro",
-    ".cloudflare",
-    ".pnpm-store",
-    ".vite-hooks",
-    ".wrangler",
-    "dist",
-    "node_modules",
-    "pnpm-lock.yaml"
-  ],
   "languages": {
+    "Astro": {
+      "format_on_save": "on",
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "prettier": { "allowed": false }
+    },
     "CSS": {
       "format_on_save": "on",
       "formatter": [{ "language_server": { "name": "oxfmt" } }],
@@ -42,6 +34,15 @@
     "MDX": {
       "format_on_save": "on",
       "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "prettier": { "allowed": false }
+    },
+    "TSX": {
+      "format_on_save": "on",
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ],
+      "language_servers": ["!eslint", "..."],
       "prettier": { "allowed": false }
     },
     "TypeScript": {

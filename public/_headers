@@ -1,9 +1,0 @@
-/en/
-  Link: </sitemap-index.xml>; rel="service-doc"
-  Link: </en/rss.xml>; rel="describedby"
-  Link: </llms.txt>; rel="describedby"
-  Vary: Accept
-
-/*.md
-  Content-Type: text/markdown; charset=utf-8
-  Vary: Accept
