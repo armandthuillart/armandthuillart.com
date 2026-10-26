@@ -8,17 +8,13 @@ const socials = [
     name: "LinkedIn",
     url: "https://www.linkedin.com/in/armandthuillart/",
   },
-  {
-    name: "YouTube",
-    url: "https://www.youtube.com/@armandthuillart",
-  },
 ];
 ---
 
 <nav class="flex gap-4 pt-2">
   {socials.map((social) => (
     <a
-      class="text-link decoration-1 underline-offset-3 hover:underline"
+      class="text-link decoration-1 underline-offset-3 hover:underline pointer-coarse:underline"
       href={social.url}
       rel="noopener noreferrer"
       target="_blank"

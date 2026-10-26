@@ -13,6 +13,8 @@
   --color-link: var(--link);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-popup: var(--popup);
+  --color-popup-muted-foreground: var(--popup-muted-foreground);
   --font-serif: var(--font-magister-st);
 }
 
@@ -23,6 +25,8 @@
   --link: #006cb8;
   --muted: #f4f4f4;
   --muted-foreground: #6d6c69;
+  --popup: #f4f4f4;
+  --popup-muted-foreground: #767674;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,6 +37,8 @@
     --link: #6fc3ff;
     --muted: #43423e;
     --muted-foreground: #ababa9;
+    --popup: #43423e;
+    --popup-muted-foreground: #c0c0bf;
   }
 }
 

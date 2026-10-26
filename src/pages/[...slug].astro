@@ -4,6 +4,7 @@ import { getEntry, render } from "astro:content";
 import { ClientRouter } from "astro:transitions";
 
 import "@styles/global.css";
+import Anchor from "../components/Anchor.astro";
 
 const { lang } = Astro.locals;
 const page = Astro.params.slug || "index";
@@ -36,7 +37,7 @@ const { description, title } = entry.data;
       <article>
         {Astro.url.pathname === "/" ? (
           <div class="flex flex-col gap-12 sm:gap-20">
-            <Content />
+            <Content components={{ a: Anchor }} />
           </div>
         ) : (
           <Content />

@@ -1,0 +1,16 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+
+const props = Astro.props;
+---
+
+<a
+  class="text-link decoration-1 underline-offset-3 hover:underline pointer-coarse:underline"
+  rel="noopener noreferrer"
+  target="_blank"
+  {...props}
+>
+  <slot />
+</a>
