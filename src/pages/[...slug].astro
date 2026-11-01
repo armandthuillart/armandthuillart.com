@@ -7,7 +7,7 @@ import "@styles/global.css";
 import Anchor from "../components/Anchor.astro";
 
 const { lang } = Astro.locals;
-const page = Astro.params.slug || "index";
+const page = Astro.params.slug?.replace(/^fr(\/|$)/, "") || "index";
 
 const entry = await getEntry("content", `${page}.${lang}`);
 if (!entry) return Astro.rewrite("/404");
@@ -22,20 +22,16 @@ const { description, title } = entry.data;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <Font cssVariable="--font-magister-st" preload />
-
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
-
     <ClientRouter />
   </head>
-
   <body class="bg-background font-serif leading-snug text-foreground antialiased">
     <main class="relative z-10 mx-auto mt-8 mb-16 max-w-content px-gutter sm:mt-48 sm:mb-32">
       <article>
-        {Astro.url.pathname === "/" ? (
+        {Astro.url.pathname === "/" || Astro.url.pathname === "/fr" ? (
           <div class="flex flex-col gap-12 sm:gap-20">
             <Content components={{ a: Anchor }} />
           </div>

@@ -4,11 +4,15 @@ description: Designer and developer.
 title: Armand Thuillart
 ---
 
-import Globe from "../components/Globe.tsx";
-import Song from "../components/Song.tsx";
 import Work from "../components/Work.astro";
 import Posts from "../components/Posts.astro";
 import Social from "../components/Social.astro";
+
+import { Book } from "../components/Book.tsx";
+import { HobbiesPopup } from "../components/Hobbies.tsx";
+import klaraCover from "../assets/images/klara-and-the-sun-book-cover.webp";
+import { Song } from "../components/Song.tsx";
+import { StudiesPopup, StudiesTrigger } from "../components/Studies.tsx";
 
 <header class="flex flex-col gap-7">
 
@@ -19,11 +23,15 @@ import Social from "../components/Social.astro";
 
 <div class="flex flex-col gap-3">
 
-I founded [Dimsight](https://www.dimsight.com/), a sales intelligence software that helps industrial companies find new business opportunities matching their expertise.
+I founded [Dimsight](https://www.dimsight.com/), a sales intelligence software for industrial companies that nonstop monitors, qualifies, and surfaces new business opportunities matching their know-how.
 
-I recently majored after five years of studying international business around the <Globe client:load description="Europe, South America, and North America." title="world" />, while tinkering with code at night.
+I recently graduated after five years studying international business across <StudiesTrigger client:load children="Europe" description="EU" image="https://picsum.photos/id/1015/448/300" />, <StudiesTrigger client:load children="North America" description="NA" image="https://picsum.photos/id/1018/448/300" />, and <StudiesTrigger client:load children="South America" description="SA" image="https://picsum.photos/id/1039/448/300" />.
 
-Beyond work, I like to make and <Song client:load description="On-repeat lately." title="listen" /> to music.
+<StudiesPopup client:load />
+
+Beyond work, I like to <Book client:load children="read" cover={klaraCover.src} coverAlt="Cover of Klara and the Sun by Kazuo Ishiguro" description="Currently reading." href="https://www.amazon.com/dp/059331817X?lv=shuf&channelId=500&plpRedirect=mhFallback" /> and <Song client:load description="On-repeat lately." title="listen" /> to music.
+
+<HobbiesPopup client:load />
 
 </div>
 
