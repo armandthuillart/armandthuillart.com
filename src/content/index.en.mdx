@@ -4,15 +4,27 @@ description: Designer and developer.
 title: Armand Thuillart
 ---
 
-import Work from "../components/Work.astro";
-import Posts from "../components/Posts.astro";
-import Social from "../components/Social.astro";
+import Work from '../components/Work.astro';
+import Posts from '../components/Posts.astro';
+import Footer from '../components/Footer.tsx';
+import Social from '../components/Social.astro';
 
-import { Book } from "../components/Book.tsx";
-import { HobbiesPopup } from "../components/Hobbies.tsx";
-import klaraCover from "../assets/images/klara-and-the-sun-book-cover.webp";
-import { Song } from "../components/Song.tsx";
-import { StudiesPopup, StudiesTrigger } from "../components/Studies.tsx";
+import Preview from '../components/Preview.astro';
+import klaraCover from '../assets/images/klara-and-the-sun-book-cover.webp';
+import paris1 from '../assets/images/paris-1.webp';
+import paris2 from '../assets/images/paris-2.webp';
+import caen1 from '../assets/images/caen-1.webp';
+import caen2 from '../assets/images/caen-2.webp';
+import dublin1 from '../assets/images/dublin-1.webp';
+import dublin2 from '../assets/images/dublin-2.webp';
+import oxford1 from '../assets/images/oxford-1.webp';
+import oxford2 from '../assets/images/oxford-2.webp';
+import boston1 from '../assets/images/boston-1.webp';
+import boston2 from '../assets/images/boston-2.webp';
+import boston3 from '../assets/images/boston-3.webp';
+import vinaDelMar1 from '../assets/images/vina-del-mar-1.webp';
+import vinaDelMar2 from '../assets/images/vina-del-mar-2.webp';
+import vinaDelMar3 from '../assets/images/vina-del-mar-3.webp';
 
 <header class="flex flex-col gap-7">
 
@@ -25,13 +37,43 @@ import { StudiesPopup, StudiesTrigger } from "../components/Studies.tsx";
 
 I founded [Dimsight](https://www.dimsight.com/), a sales intelligence software for industrial companies that nonstop monitors, qualifies, and surfaces new business opportunities matching their know-how.
 
-I recently graduated after five years studying international business across <StudiesTrigger client:load children="Europe" description="EU" image="https://picsum.photos/id/1015/448/300" />, <StudiesTrigger client:load children="North America" description="NA" image="https://picsum.photos/id/1018/448/300" />, and <StudiesTrigger client:load children="South America" description="SA" image="https://picsum.photos/id/1039/448/300" />.
-
-<StudiesPopup client:load />
-
-Beyond work, I like to <Book client:load children="read" cover={klaraCover.src} coverAlt="Cover of Klara and the Sun by Kazuo Ishiguro" description="Currently reading." href="https://www.amazon.com/dp/059331817X?lv=shuf&channelId=500&plpRedirect=mhFallback" /> and <Song client:load description="On-repeat lately." title="listen" /> to music.
-
-<HobbiesPopup client:load />
+<Preview
+  education={{
+    before: 'I recently graduated after five years studying international business across ',
+    separators: [', ', ', and '],
+    after: '.',
+    items: [
+      {
+        label: 'Europe',
+        description: 'France (Caen, Paris), England (Oxford), and Ireland (Dublin).',
+        images: [paris1, paris2, caen1, caen2, dublin1, dublin2, oxford1, oxford2],
+      },
+      {
+        label: 'North America',
+        description: 'Student exchange at UMASS Boston, Massachusetts, USA.',
+        images: [boston1, boston2, boston3],
+      },
+      {
+        label: 'South America',
+        description: 'Another student exchange at UAI in Viña del Mar, Chile.',
+        images: [vinaDelMar1, vinaDelMar2, vinaDelMar3],
+      },
+    ],
+  }}
+  hobbies={{
+    beforeBook: 'Beyond work, I like to ',
+    betweenBookAndSong: ' and ',
+    afterSong: ' to music.',
+    book: {
+      children: 'read',
+      cover: klaraCover.src,
+      coverAlt: 'Cover of Klara and the Sun by Kazuo Ishiguro',
+      description: 'Currently reading.',
+      href: 'https://www.amazon.com/dp/059331817X?lv=shuf&channelId=500&plpRedirect=mhFallback',
+    },
+    song: { description: 'On-repeat lately.', title: 'listen' },
+  }}
+/>
 
 </div>
 
@@ -41,4 +83,17 @@ Beyond work, I like to <Book client:load children="read" cover={klaraCover.src} 
 
 <Work title="Ventures" />
 
-<Posts title="Milestones" />
+<Posts label="Article" title="Milestones" />
+
+<Footer
+  client:load
+  locale="en"
+  quotes={[
+    'The only limit is yourself',
+    'Consistency is key',
+    'Every day is a new chance',
+    'Dream big, start small',
+    'Never look back',
+  ]}
+  timeZone="Europe/Paris"
+/>

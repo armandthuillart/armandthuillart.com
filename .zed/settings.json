@@ -13,6 +13,13 @@
       "format_on_save": "on",
       "formatter": [{ "language_server": { "name": "oxfmt" } }]
     },
+    "JavaScript": {
+      "format_on_save": "on",
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
+    },
     "JSON": {
       "format_on_save": "on",
       "formatter": [{ "language_server": { "name": "oxfmt" } }]
@@ -37,9 +44,11 @@
       ]
     },
     "TypeScript": {
-      "code_actions_on_format": { "source.fixAll.oxc": true },
       "format_on_save": "on",
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
     },
     "YAML": {
       "format_on_save": "on",
@@ -48,10 +57,6 @@
   },
   "lsp": {
     "oxfmt": {
-      "binary": {
-        "arguments": ["fmt", "--lsp"],
-        "path": "node_modules/.bin/vp"
-      },
       "initialization_options": {
         "settings": {
           "fmt.configPath": "./vite.config.ts"
@@ -59,15 +64,18 @@
       }
     },
     "oxlint": {
-      "binary": {
-        "arguments": ["lint", "--lsp"],
-        "path": "node_modules/.bin/vp"
-      },
       "initialization_options": {
         "settings": {
           "fixKind": "safe_fix",
-          "typeAware": false, // Avoid per-keystroke tsgolint lag in Zed (see https://github.com/oxc-project/oxc-intellij-plugin/issues/366#issuecomment-4952770299)
+          "typeAware": true,
           "unusedDisableDirectives": "deny"
+        }
+      }
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "experimental": {
+          "configFile": "src/styles/global.css"
         }
       }
     }

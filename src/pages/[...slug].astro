@@ -1,19 +1,45 @@
 ---
-import { Font } from "astro:assets";
-import { getEntry, render } from "astro:content";
-import { ClientRouter } from "astro:transitions";
+import { Font } from 'astro:assets';
+import { i18n } from 'astro:config/client';
+import { getEntry, render } from 'astro:content';
+import { getAbsoluteLocaleUrl, getRelativeLocaleUrl, toCodes } from 'astro:i18n';
 
-import "@styles/global.css";
-import Anchor from "../components/Anchor.astro";
+import '@styles/global.css';
+import Anchor from '../components/Anchor.astro';
+import { getPosts } from '../lib/posts.ts';
 
 const { lang } = Astro.locals;
-const page = Astro.params.slug?.replace(/^fr(\/|$)/, "") || "index";
+const locales = toCodes(i18n?.locales ?? []);
 
-const entry = await getEntry("content", `${page}.${lang}`);
-if (!entry) return Astro.rewrite("/404");
+const page = Astro.params.slug?.split('/').slice(1).join('/') || 'index';
+const getLocaleUrl = (locale: string) =>
+  getAbsoluteLocaleUrl(locale, page === 'index' ? undefined : page);
+
+const entry = await getEntry('content', `${page}.${lang}`);
+if (!entry) return Astro.rewrite('/404');
 
 const { Content } = await render(entry);
-const { description, title } = entry.data;
+const { date, description, title } = entry.data;
+
+const labels: Record<string, { back: string; next: string; previous: string }> = {
+  en: {
+    back: 'Go back',
+    next: 'Next',
+    previous: 'Previous',
+  },
+  fr: {
+    back: 'Retour',
+    next: 'Suivant',
+    previous: 'Précédent',
+  },
+};
+
+const { back, next, previous } = labels[lang];
+
+const posts = await getPosts(lang);
+const index = posts.findIndex((post) => post.slug === page);
+const newerPost = index > 0 ? posts[index - 1] : undefined;
+const olderPost = index === -1 ? undefined : posts[index + 1];
 ---
 
 <!doctype html>
@@ -21,22 +47,76 @@ const { description, title } = entry.data;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <Font cssVariable="--font-magister-st" preload />
     <title>{title}</title>
+    <Font cssVariable="--font-magister-st" preload />
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <link rel="canonical" href={getLocaleUrl(lang)} />
+    {locales.map((locale) => (
+      <link rel="alternate" hreflang={locale} href={getLocaleUrl(locale)} />
+    ))}
+    {page === 'index' && (
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={new URL('/', Astro.site ?? Astro.url).toString()}
+      />
+    )}
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <ClientRouter />
   </head>
+
   <body class="bg-background font-serif leading-snug text-foreground antialiased">
     <main class="relative z-10 mx-auto mt-8 mb-16 max-w-content px-gutter sm:mt-48 sm:mb-32">
       <article>
-        {Astro.url.pathname === "/" || Astro.url.pathname === "/fr" ? (
+        {page === 'index' ? (
           <div class="flex flex-col gap-12 sm:gap-20">
             <Content components={{ a: Anchor }} />
           </div>
         ) : (
-          <Content />
+          <div class="flex flex-col gap-9">
+            <div class="flex flex-col gap-7">
+              <div class="flex flex-col gap-8">
+                <aside class="min-[1146px]:fixed min-[1146px]:top-0 min-[1146px]:translate-x-[max(-360px,-23vw)] min-[1146px]:translate-y-44">
+                  <a
+                    class="inline-flex items-center gap-1 text-sm text-muted-foreground hover:opacity-60"
+                    href={getRelativeLocaleUrl(lang)}
+                  >
+                    <span class="font-[system-ui]">←</span>
+                    {back}
+                  </a>
+                </aside>
+
+                <header class="flex flex-col gap-0.5">
+                  <h1>{title}</h1>
+                  <time class="leading-none text-muted-foreground" datetime={date.toISOString()}>
+                    {date.toLocaleDateString(lang, { month: 'long', year: 'numeric' })}
+                  </time>
+                </header>
+              </div>
+
+              <div class="space-y-4">
+                <Content components={{ a: Anchor }} />
+              </div>
+            </div>
+
+            <hr class="border-border" />
+
+            <nav class="flex justify-between">
+              {olderPost && (
+                <a class="flex flex-col hover:opacity-60" href={olderPost.url}>
+                  <span class="leading-none text-muted-foreground">{previous}</span>
+                  <p>{olderPost.title}</p>
+                </a>
+              )}
+
+              {newerPost && (
+                <a class="ml-auto flex flex-col items-end hover:opacity-60" href={newerPost.url}>
+                  <span class="leading-none text-muted-foreground">{next}</span>
+                  <p>{newerPost.title}</p>
+                </a>
+              )}
+            </nav>
+          </div>
         )}
       </article>
     </main>

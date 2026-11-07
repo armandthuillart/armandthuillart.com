@@ -1,0 +1,31 @@
+---
+import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
+
+import { Preview as PreviewIsland, type PreviewProps, type PreviewStudy } from './Preview.tsx';
+
+interface Props {
+  education: Omit<PreviewProps['education'], 'items'> & {
+    items: (Omit<PreviewStudy, 'images'> & { images: ImageMetadata[] })[];
+  };
+  hobbies: PreviewProps['hobbies'];
+}
+
+const { education, hobbies } = Astro.props;
+const items: PreviewStudy[] = await Promise.all(
+  education.items.map(async ({ images, ...study }) => ({
+    ...study,
+    images: await Promise.all(
+      images.map(async (image) => {
+        const optimizedImage = await getImage({
+          src: image,
+          width: 448,
+        });
+        return optimizedImage.src;
+      }),
+    ),
+  })),
+);
+---
+
+<PreviewIsland client:load education={{ ...education, items }} hobbies={hobbies} />

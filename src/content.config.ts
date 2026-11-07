@@ -1,16 +1,18 @@
-import { glob } from "astro/loaders";
-import { z } from "astro/zod";
-import { defineCollection } from "astro:content";
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
+import { defineCollection } from 'astro:content';
 
 const content = defineCollection({
   loader: glob({
-    base: "./src/content",
-    generateId: ({ entry }) => entry.replace(/\.mdx$/, ""),
-    pattern: "*.mdx",
+    base: './src/content',
+    generateId: ({ entry }) => entry.replace(/\.mdx$/, ''),
+    pattern: '*.mdx',
   }),
   schema: z.object({
     date: z.coerce.date(),
-    description: z.string(),
+    description: z.string().optional(),
+    draft: z.boolean().default(false),
+    year: z.number().int().optional(),
     title: z.string(),
   }),
 });

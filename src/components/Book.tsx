@@ -1,4 +1,4 @@
-import { HobbiesTrigger } from "./Hobbies";
+import { PreviewTrigger } from './PreviewTrigger.tsx';
 
 interface BookProps {
   children: string;
@@ -10,9 +10,14 @@ interface BookProps {
 
 export function Book({ children, cover, coverAlt, description, href }: BookProps) {
   return (
-    <HobbiesTrigger
+    <PreviewTrigger
       content={
-        <a className="flex flex-col p-2 text-center" href={href} rel="noopener noreferrer" target="_blank">
+        <a
+          className="flex flex-col p-2 text-center"
+          href={href}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           <div className="group @container w-42 scale-90 perspective-[900px]">
             <div className="relative h-60 w-full transition-transform duration-250 ease-out transform-3d group-hover:-translate-x-2 group-hover:scale-[1.066] group-hover:-rotate-y-20">
               <div className="relative h-full translate-z-0 overflow-hidden rounded-l-md rounded-r-sm bg-muted shadow-book after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:border after:border-black/10 after:shadow-[inset_0_1px_2px_#ffffff4d]">
@@ -29,6 +34,6 @@ export function Book({ children, cover, coverAlt, description, href }: BookProps
       href={href}
     >
       {children}
-    </HobbiesTrigger>
+    </PreviewTrigger>
   );
 }

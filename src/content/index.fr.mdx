@@ -4,15 +4,27 @@ description: Designer et développeur.
 title: Armand Thuillart
 ---
 
-import Work from "../components/Work.astro";
-import Posts from "../components/Posts.astro";
-import Social from "../components/Social.astro";
+import Work from '../components/Work.astro';
+import Posts from '../components/Posts.astro';
+import Footer from '../components/Footer.tsx';
+import Social from '../components/Social.astro';
 
-import { Book } from "../components/Book.tsx";
-import { HobbiesPopup } from "../components/Hobbies.tsx";
-import klaraCover from "../assets/images/klara-et-le-soleil-photo-de-couverture.webp";
-import { Song } from "../components/Song.tsx";
-import { StudiesPopup, StudiesTrigger } from "../components/Studies.tsx";
+import Preview from '../components/Preview.astro';
+import klaraCover from '../assets/images/klara-et-le-soleil-photo-de-couverture.webp';
+import paris1 from '../assets/images/paris-1.webp';
+import paris2 from '../assets/images/paris-2.webp';
+import caen1 from '../assets/images/caen-1.webp';
+import caen2 from '../assets/images/caen-2.webp';
+import dublin1 from '../assets/images/dublin-1.webp';
+import dublin2 from '../assets/images/dublin-2.webp';
+import oxford1 from '../assets/images/oxford-1.webp';
+import oxford2 from '../assets/images/oxford-2.webp';
+import boston1 from '../assets/images/boston-1.webp';
+import boston2 from '../assets/images/boston-2.webp';
+import boston3 from '../assets/images/boston-3.webp';
+import vinaDelMar1 from '../assets/images/vina-del-mar-1.webp';
+import vinaDelMar2 from '../assets/images/vina-del-mar-2.webp';
+import vinaDelMar3 from '../assets/images/vina-del-mar-3.webp';
 
 <header class="flex flex-col gap-7">
 
@@ -25,13 +37,43 @@ import { StudiesPopup, StudiesTrigger } from "../components/Studies.tsx";
 
 J’ai créé [Dimsight](https://www.dimsight.com/), logiciel d’intelligence commerciale pour les fabricants, fournisseurs et prestataires industriels, qui veille, qualifie et fait remonter en continu les opportunités qui correspondent à leur savoir-faire.
 
-J’ai récemment été diplômé en commerce international après cinq ans d’études en <StudiesTrigger client:load children="Europe" description="EU" image="https://picsum.photos/id/1015/448/300" />, en <StudiesTrigger client:load children="Amérique du Sud" description="NA" image="https://picsum.photos/id/1018/448/300" />, et aux <StudiesTrigger client:load children="États-Unis" description="SA" image="https://picsum.photos/id/1039/448/300" />.
-
-<StudiesPopup client:load />
-
-Sinon, j’aime <Book client:load children="lire" cover={klaraCover.src} coverAlt="Couverture de Klara et le Soleil par Kazuo Ishiguro" description="Ma dernière lecture." href="https://www.fnac.com/a15933384/Kazuo-Ishiguro-Klara-et-le-Soleil" /> et <Song client:load description="En boucle récemment." title="écouter" /> de la musique.
-
-<HobbiesPopup client:load />
+<Preview
+  education={{
+    before: 'J’ai récemment été diplômé en commerce international après cinq ans d’études en ',
+    separators: [', en ', ', et aux '],
+    after: '.',
+    items: [
+      {
+        label: 'Europe',
+        description: 'France (Caen, Paris), Angleterre (Oxford) et Irlande (Dublin).',
+        images: [paris1, paris2, caen1, caen2, dublin1, dublin2, oxford1, oxford2],
+      },
+      {
+        label: 'Amérique du Sud',
+        description: 'Échange à l’université d’Adolfo Ibáñez (Viña del Mar), au Chili.',
+        images: [vinaDelMar1, vinaDelMar2, vinaDelMar3],
+      },
+      {
+        label: 'États-Unis',
+        description: 'Échange universitaire à UMass Boston, aux États-Unis.',
+        images: [boston1, boston2, boston3],
+      },
+    ],
+  }}
+  hobbies={{
+    beforeBook: 'Sinon, j’aime ',
+    betweenBookAndSong: ' et ',
+    afterSong: ' de la musique.',
+    book: {
+      children: 'lire',
+      cover: klaraCover.src,
+      coverAlt: 'Couverture de Klara et le Soleil par Kazuo Ishiguro',
+      description: 'Ma dernière lecture.',
+      href: 'https://www.fnac.com/a15933384/Kazuo-Ishiguro-Klara-et-le-Soleil',
+    },
+    song: { description: 'En boucle récemment.', title: 'écouter' },
+  }}
+/>
 
 </div>
 
@@ -41,4 +83,17 @@ Sinon, j’aime <Book client:load children="lire" cover={klaraCover.src} coverAl
 
 <Work title="Aventures" />
 
-<Posts title="Événements" />
+<Posts label="Article" title="Événements" />
+
+<Footer
+  client:load
+  locale="fr"
+  quotes={[
+    'La seule limite, c’est toi',
+    'La constance est essentielle',
+    'Chaque jour est une nouvelle chance',
+    'Rêve grand, commence petit',
+    'Ne regarde jamais en arrière',
+  ]}
+  timeZone="Europe/Paris"
+/>

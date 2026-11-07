@@ -1,8 +1,8 @@
-import songImage from "@assets/images/music-cover.webp?url";
+import songImage from '@assets/images/music-cover.webp?url';
 
-import { HobbiesTrigger } from "./Hobbies";
+import { PreviewTrigger } from './PreviewTrigger.tsx';
 
-const songUrl = "https://music.apple.com/fr/album/til-the-morning/1767985858?i=1767987064";
+const songUrl = 'https://music.apple.com/fr/album/til-the-morning/1767985858?i=1767987064';
 
 interface Props {
   description: string;
@@ -11,7 +11,7 @@ interface Props {
 
 export function Song({ description, title }: Props) {
   return (
-    <HobbiesTrigger
+    <PreviewTrigger
       content={
         <a
           className="group flex w-50 flex-col gap-2 p-2"
@@ -54,6 +54,6 @@ export function Song({ description, title }: Props) {
       href={songUrl}
     >
       {title}
-    </HobbiesTrigger>
+    </PreviewTrigger>
   );
 }

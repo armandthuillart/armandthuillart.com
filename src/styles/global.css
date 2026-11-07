@@ -1,5 +1,4 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
 
 @theme {
   --spacing-gutter: 2rem;
@@ -51,7 +50,7 @@
 
 @layer base {
   * {
-    @apply outline-offset-2 focus-visible:outline-2;
+    @apply focus-visible:outline-2 focus-visible:outline-[-webkit-focus-ring-color];
   }
   body,
   html {

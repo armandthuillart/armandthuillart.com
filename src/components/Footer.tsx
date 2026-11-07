@@ -1,48 +1,49 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 interface Props {
-  initialTime: string;
+  initialTime?: string;
+  locale: 'en' | 'fr';
   quotes: string[];
-  timezoneLabel: string;
+  timeZone: string;
 }
 
-export default function Footer({ initialTime, quotes, timezoneLabel }: Props) {
-  const [time, setTime] = useState(initialTime);
+export default function Footer({ initialTime, locale, quotes, timeZone }: Props) {
+  const [time, setTime] = useState(initialTime ?? formatTime(locale, timeZone));
   const [quoteIndex, setQuoteIndex] = useState(0);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setTime(formatTime());
+      setTime(formatTime(locale, timeZone));
       setQuoteIndex((index) => (index + 1) % quotes.length);
     }, 12_000);
 
     return () => {
       window.clearInterval(interval);
     };
-  }, [quotes]);
+  }, [locale, quotes, timeZone]);
 
   return (
-    <footer className="site-footer">
-      <span className="footer-line">{quotes[quoteIndex]}</span>
-      <span className="footer-line footer-time">
-        <span>{time}</span>
-        <span>{timezoneLabel}</span>
-      </span>
+    <footer className="flex flex-col text-sm text-muted-foreground">
+      <span>{quotes[quoteIndex]}</span>
+      <span>{time}</span>
     </footer>
   );
 }
 
-function formatTime() {
-  const parts = new Intl.DateTimeFormat("en-US", {
-    hour: "2-digit",
-    hour12: true,
-    minute: "2-digit",
-    timeZone: "America/Sao_Paulo",
+function formatTime(locale: 'en' | 'fr', timeZone: string) {
+  const parts = new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : 'fr-FR', {
+    hour: 'numeric',
+    hour12: locale === 'en',
+    minute: '2-digit',
+    timeZone,
+    timeZoneName: 'shortOffset',
   }).formatToParts(new Date());
 
-  const hour = parts.find((part) => part.type === "hour")?.value ?? "12";
-  const minute = parts.find((part) => part.type === "minute")?.value ?? "00";
-  const period = parts.find((part) => part.type === "dayPeriod")?.value ?? "AM";
+  const hour = parts.find((part) => part.type === 'hour')?.value ?? '12';
+  const minute = parts.find((part) => part.type === 'minute')?.value ?? '00';
+  const period = parts.find((part) => part.type === 'dayPeriod')?.value ?? 'AM';
+  const offset = parts.find((part) => part.type === 'timeZoneName')?.value ?? 'UTC';
+  const normalizedOffset = offset.replace(/^(?:GMT|UTC)/, 'GMT').replace('−', '-');
 
-  return `${hour.padStart(2, "0")}:${minute} ${period}`;
+  return `${hour}:${minute}${locale === 'en' ? ` ${period}` : ''} ${normalizedOffset}`;
 }

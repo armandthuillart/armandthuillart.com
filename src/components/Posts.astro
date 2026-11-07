@@ -1,12 +1,66 @@
 ---
+import { getPosts } from '../lib/posts';
+
 interface Props {
+  label: string;
   title: string;
 }
 
-const { title } = Astro.props;
+const { label, title } = Astro.props;
+const { lang } = Astro.locals;
+
+const posts = await getPosts(lang);
 ---
 
-<section class="mt-3 flex flex-col">
+<section class="mt-3 flex flex-col gap-4">
   <h2 class="text-muted-foreground">{title}</h2>
-  <div class="flex flex-col transition-opacity duration-200 ease-[ease] md:[&:has(a:hover)>a:not(:hover)]:opacity-40"></div>
+
+  <div
+    data-posts
+    class="flex flex-col md:[&:has(a:focus-visible)>a:not(:focus-visible)]:opacity-40 md:[&:has(a:hover)>a:not(:hover)]:opacity-40"
+  >
+    {posts.map((post, index) => (
+      <a class="group flex h-9 items-center gap-7 sm:gap-9" href={post.url}>
+        <p
+          class:list={[
+            'tabular-nums',
+            post.year === posts[index - 1]?.year ? 'opacity-0' : 'opacity-70',
+          ]}
+        >
+          {post.year}
+        </p>
+
+        <div class="flex flex-1 items-center justify-between">
+          <h3 class="text-foreground">{post.title}</h3>
+
+          <div class="flex items-center gap-1 opacity-70 max-sm:hidden">
+            <p>{label}</p>
+
+            <span class="w-0 font-[system-ui] opacity-0 group-hover:w-3.5 group-hover:opacity-80 group-focus-visible:w-3.5 group-focus-visible:opacity-80">
+              →
+            </span>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
 </section>
+
+<script>
+  const siblings = {
+    ArrowDown: 'nextElementSibling',
+    ArrowUp: 'previousElementSibling',
+  } as const;
+
+  document.addEventListener('keydown', (event) => {
+    const { key, target } = event;
+    if (!(target instanceof HTMLAnchorElement) || !(key in siblings)) return;
+    if (!target.parentElement?.matches('[data-posts]')) return;
+
+    const next = target[siblings[key as keyof typeof siblings]];
+    if (!(next instanceof HTMLAnchorElement)) return;
+
+    event.preventDefault();
+    next.focus();
+  });
+</script>
