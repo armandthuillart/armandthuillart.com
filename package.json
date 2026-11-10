@@ -12,9 +12,9 @@
     "sync": "astro sync"
   },
   "dependencies": {
-    "@astrojs/react": "^7.1.5",
+    "@astrojs/react": "^7.1.6",
     "@base-ui/react": "^1.9.0",
-    "astro": "^7.4.8",
+    "astro": "^7.4.9",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
@@ -31,7 +31,7 @@
     "eslint-plugin-no-comments": "^1.2.1",
     "eslint-plugin-perfectionist": "^5.13.0",
     "jscpd": "^5.4.3",
-    "knip": "^6.44.2",
+    "knip": "^6.45.0",
     "oxc-transform-react": "^0.158.0",
     "tailwindcss": "^4.3.5",
     "typescript": "7.1.0-beta",
