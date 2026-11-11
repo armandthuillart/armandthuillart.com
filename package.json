@@ -12,16 +12,16 @@
     "sync": "astro sync"
   },
   "dependencies": {
-    "@astrojs/react": "^7.1.6",
+    "@astrojs/react": "^7.1.8",
     "@base-ui/react": "^1.9.0",
-    "astro": "^7.4.9",
+    "astro": "^7.4.11",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
-    "@astrojs/cloudflare": "^14.4.6",
-    "@astrojs/mdx": "^8.1.3",
+    "@astrojs/cloudflare": "^14.4.7",
+    "@astrojs/mdx": "^8.1.5",
     "@astrojs/sitemap": "^3.7.4",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@tailwindcss/vite": "^4.3.5",
@@ -31,12 +31,12 @@
     "eslint-plugin-no-comments": "^1.2.1",
     "eslint-plugin-perfectionist": "^5.13.0",
     "jscpd": "^5.4.3",
-    "knip": "^6.45.0",
+    "knip": "^6.45.1",
     "oxc-transform-react": "^0.158.0",
     "tailwindcss": "^4.3.5",
     "typescript": "7.1.0-beta",
-    "vite-plus": "^1.5.1",
-    "wrangler": "^4.160.0"
+    "vite-plus": "^1.6.0",
+    "wrangler": "^4.160.1"
   },
   "packageManager": "pnpm@12.18.0"
 }
